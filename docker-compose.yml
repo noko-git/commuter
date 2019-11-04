@@ -1,0 +1,27 @@
+version: '3'
+services:
+  commuter:
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile'
+    ports:
+      - "14000:4000"
+    network_mode: "bridge"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - COMMUTER_STORAGE_BACKEND=s3
+      - COMMUTER_DISCOVERY_BACKEND=none
+      - COMMUTER_PORT=4000
+      # - COMMUTER_LOCAL_STORAGE_BASEDIRECTORY=/app
+      # - COMMUTER_ES_HOST
+      - COMMUTER_S3_BASE_PREFIX=<s3_base_prefix>
+      - COMMUTER_S3_PATH_DELIMITER="/"
+      - COMMUTER_BUCKET=<s3_bucket_name>
+      - COMMUTER_S3_KEY=<aws_access_key_id>
+      - COMMUTER_S3_SECRET=<aws_secret_access_key>
+      # - COMMUTER_S3_ENDPOINT
+#    volumes: 
+#      - /opt/commuter:/app/commuter
+    restart: always
+    command: commuter
